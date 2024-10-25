@@ -17,7 +17,7 @@ const connectDB = async () => {
 const disconnectDB = async () => {
 
     try {
-        await mangoose.disconnect();
+        await mongoose.disconnect();
         console.log("MongoDB disconnected successfully");
     } catch (err) {
         console.error('MongoDB connection failed', err.message);
@@ -25,4 +25,4 @@ const disconnectDB = async () => {
     }
 };
 
-module.experts = {connectDB, disconnectDB};
+module.exports = {connectDB, disconnectDB};
