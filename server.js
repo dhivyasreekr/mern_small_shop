@@ -2,7 +2,7 @@
     const {connectDB, disconnectDB} = require('./config/db'); //import database connection function
     const dotenv = require('dotenv');
 
-    // const path = require('path');
+    const path = require('path');
     const bodyParser = require('body-parser');
 
     // Load environment variables
@@ -10,6 +10,7 @@
 
     //Import route models
     const CategoryRoutes = require('./routes/api/v2/CategoryRoutes'); //import category routes
+    const BrandRoutes = require('./routes/api/v2/BrandRoutes');
 
     // Initialize the Express App
     const app = express();
@@ -17,12 +18,18 @@
     //middleware to parse JSON data
     app.use(express.json()); //enable JSON body parsing
     app.use(bodyParser.json()); //enable additional JSON body parsing
+    app.use(express.static(path.join(__dirname,'public')));
+
+    app.get('/no_image_available.jpg', (req, res) => {
+        res.sendFile(path.join(__dirname, 'public/images/no_image_available.jpg'));
+    })
 
     //connect to MongoDB
     connectDB(); //call the function to connect to the database 
 
     //define api routes
     app.use('/api/categories', CategoryRoutes); //set up category routes
+    app.use('/api/brands', BrandRoutes);
 
     // Define a test route
     app.get('/', (req, res) => {
