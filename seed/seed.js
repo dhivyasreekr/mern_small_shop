@@ -1,6 +1,8 @@
 const {connectDB, disconnectDB} = require('../config/db');
 const Category = require('../models/Category');
 const Brand = require('../models/Brand');
+const Product = require('../models/Product');
+
 
 const { faker } = require('@faker-js/faker');
 
@@ -14,6 +16,7 @@ const seedDatabase = async () => {
         //clear existing data
         await Category.deleteMany({});
         await Brand.deleteMany({});
+        await Product.deleteMany({});
 
         //create categories
         const categories = [];
@@ -28,6 +31,17 @@ const seedDatabase = async () => {
             const brand = new Brand({ name: faker.company.name(), image_path: 'no_image_available.jpg'});
             brands.push(await brand.save());
         }
+
+        const products = [];
+        for (let i = 0; i < 20; i++) {
+            const product = new Product({
+                name: faker.company.name(),
+                image_path: 'no_image_available.jpg',
+                price: faker.commerce.price() // Adds a random price
+            });
+            products.push(await product.save());
+        }
+        
 
         console.log('Database seeded');
         disconnectDB();
