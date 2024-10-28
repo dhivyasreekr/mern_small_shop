@@ -12,6 +12,7 @@
     const CategoryRoutes = require('./routes/api/v2/CategoryRoutes'); //import category routes
     const BrandRoutes = require('./routes/api/v2/BrandRoutes');
     const ProductRoutes = require('./routes/api/v2/ProductRoutes');
+    const AuthRoutes = require('./routes/api/v2/AuthRoutes');
 
     // Initialize the Express App
     const app = express();
@@ -32,6 +33,7 @@
     app.use('/api/categories', CategoryRoutes); //set up category routes
     app.use('/api/brands', BrandRoutes);
     app.use('/api/products', ProductRoutes);
+    app.use('/api/auth', AuthRoutes);
 
     // Define a test route
     app.get('/', (req, res) => {
